@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { ProgressService } from './progress.service';
 import { ProgressEntry } from '../entities/progress-entry.entity';
@@ -108,6 +109,65 @@ describe('ProgressService', () => {
       });
       expect(result[0].date).toBe('2026-06-29');
       expect(result[2].date).toBe('2026-06-01');
+    });
+  });
+
+  describe('findOne', () => {
+    it('should return a progress entry by id', async () => {
+      const entry = mockEntries[0];
+      jest.spyOn(progressRepository, 'findOne').mockResolvedValue(entry as any);
+
+      const result = await progressService.findOne(1, userId);
+
+      expect(result).toEqual(entry);
+      expect(progressRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 1, userId },
+      });
+    });
+
+    it('should throw NotFoundException when entry is not found', async () => {
+      jest.spyOn(progressRepository, 'findOne').mockResolvedValue(null);
+
+      await expect(progressService.findOne(99, userId)).rejects.toThrow(
+        NotFoundException,
+      );
+      expect(progressRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 99, userId },
+      });
+    });
+  });
+
+  describe('update', () => {
+    it('should update the progress entry fields', async () => {
+      const existingEntry = { ...mockEntries[0] };
+      const updateDto = { weight: 81.0, notes: 'Updated notes' };
+      const updatedEntry = { ...existingEntry, ...updateDto };
+
+      jest.spyOn(progressRepository, 'findOne').mockResolvedValue(existingEntry as any);
+      jest.spyOn(progressRepository, 'save').mockResolvedValue(updatedEntry as any);
+
+      const result = await progressService.update(1, userId, updateDto);
+
+      expect(result).toEqual(updatedEntry);
+      expect(progressRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 1, userId },
+      });
+      expect(progressRepository.save).toHaveBeenCalledWith(updatedEntry);
+    });
+  });
+
+  describe('remove', () => {
+    it('should delete a progress entry', async () => {
+      const entry = mockEntries[0];
+      jest.spyOn(progressRepository, 'findOne').mockResolvedValue(entry as any);
+      jest.spyOn(progressRepository, 'remove').mockResolvedValue(entry as any);
+
+      await progressService.remove(1, userId);
+
+      expect(progressRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 1, userId },
+      });
+      expect(progressRepository.remove).toHaveBeenCalledWith(entry);
     });
   });
 });

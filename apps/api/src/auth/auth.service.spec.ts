@@ -132,4 +132,35 @@ describe('AuthService', () => {
       ).rejects.toThrow(UnauthorizedException);
     });
   });
+
+  describe('getMe', () => {
+    it('should return user without password', async () => {
+      jest.spyOn(userRepository, 'findOne').mockResolvedValue(mockUser as any);
+
+      const result = await authService.getMe(1);
+
+      expect(userRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 1 },
+      });
+      expect(result).toEqual({
+        id: 1,
+        email: 'test@example.com',
+        name: 'Test User',
+        createdAt: mockUser.createdAt,
+      });
+      expect(result).not.toHaveProperty('password');
+    });
+
+    it('should throw UnauthorizedException if user not found', async () => {
+      jest.spyOn(userRepository, 'findOne').mockResolvedValue(null);
+
+      await expect(authService.getMe(999)).rejects.toThrow(
+        UnauthorizedException,
+      );
+
+      expect(userRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 999 },
+      });
+    });
+  });
 });
