@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-brand-50: #f2f6f4;
+    --color-brand-100: #e4ece8;
+    --color-brand-200: #cadad3;
+    --color-brand-300: #a7c0b5;
+    --color-brand-400: #6c9784;
+    --color-brand-500: #2d6a4f;
+    --color-brand-600: #275b44;
+    --color-brand-700: #204a37;
+    --color-brand-800: #1a3d2e;
+    --color-brand-900: #143024;
+    --color-surface-50: #f0f7f2;
+    --color-surface-100: #e9f0eb;
+    --color-surface-200: #dfe6e1;
+    --color-surface-300: #ced4d0;
+    --color-surface-400: #adb2ae;
+    --color-surface-500: #8b8f8c;
+    --color-surface-600: #6c6f6d;
+    --color-surface-700: #4d4f4d;
+    --color-surface-800: #303130;
+    --color-surface-900: #181918;
+    --color-surface-950: #020617;
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+    --font-heading: 'Lato', 'Segoe UI', sans-serif;
+    --font-body: 'Lato', 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+}

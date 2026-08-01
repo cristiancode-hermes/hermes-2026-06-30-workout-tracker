@@ -10,173 +10,173 @@ import { ErrorDisplayComponent } from '../../components/error-display/error-disp
   standalone: true,
   imports: [FormsModule, LoadingSpinnerComponent, EmptyStateComponent, ErrorDisplayComponent],
   template: `
-    <div class="mx-auto max-w-5xl space-y-6 p-4 pb-20 lg:pb-4 lg:pl-0">
-      <h1 class="text-2xl font-bold text-surface-900 dark:text-white">Progress</h1>
+<div class="mx-auto max-w-5xl space-y-6 p-4 pb-20 lg:pb-4 lg:pl-0">
+<h1 class="heading-1 text-surface-900 dark:text-white">Progress</h1>
 
-      <!-- Add Entry Form -->
-      <div class="rounded-xl bg-white p-6 shadow-sm dark:bg-surface-800">
-        <h2 class="mb-4 text-lg font-semibold text-surface-900 dark:text-white">Log New Entry</h2>
+<!-- Add Entry Form -->
+<div class="rounded-card bg-surface-card p-6 dark:bg-surface-800">
+<h2 class="mb-4 heading-2 text-surface-900 dark:text-white">Log New Entry</h2>
 
-        @if (progressService.error(); as err) {
-          <div class="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-950/30 dark:text-red-400">{{ err }}</div>
-        }
+@if (progressService.error(); as err) {
+<div class="mb-4 rounded-btn bg-red-50 p-3 text-sm text-red-700 dark:bg-red-950/30 dark:text-red-400">{{ err }}</div>
+}
 
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div>
-            <label class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300">Date</label>
-            <input
-              type="date"
-              [(ngModel)]="entryDate"
-              class="w-full rounded-lg border border-surface-300 px-4 py-2.5 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-surface-600 dark:bg-surface-800 dark:text-white"
-            />
-          </div>
-          <div>
-            <label class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300">Weight (kg)</label>
-            <input
-              type="number"
-              step="0.1"
-              [(ngModel)]="entryWeight"
-              class="w-full rounded-lg border border-surface-300 px-4 py-2.5 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-surface-600 dark:bg-surface-800 dark:text-white"
-              placeholder="e.g. 75.5"
-            />
-          </div>
-          <div>
-            <label class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300">Body Fat (%)</label>
-            <input
-              type="number"
-              step="0.1"
-              [(ngModel)]="entryBodyFat"
-              class="w-full rounded-lg border border-surface-300 px-4 py-2.5 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-surface-600 dark:bg-surface-800 dark:text-white"
-              placeholder="e.g. 15.5"
-            />
-          </div>
-          <div>
-            <label class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300">Notes</label>
-            <input
-              type="text"
-              [(ngModel)]="entryNotes"
-              class="w-full rounded-lg border border-surface-300 px-4 py-2.5 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-surface-600 dark:bg-surface-800 dark:text-white"
-              placeholder="Any notes..."
-            />
-          </div>
-        </div>
-        <button
-          (click)="addEntry()"
-          [disabled]="progressService.isLoading()"
-          class="mt-4 rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 disabled:opacity-50"
-        >
-          {{ progressService.isLoading() ? 'Adding...' : 'Add Entry' }}
-        </button>
-      </div>
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+<div>
+<label class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300">Date</label>
+<input
+type="date"
+[(ngModel)]="entryDate"
+class="w-full rounded-btn border border-surface-300 px-4 py-2.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent dark:border-surface-600 dark:bg-surface-800 dark:text-white"
+/>
+</div>
+<div>
+<label class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300">Weight (kg)</label>
+<input
+type="number"
+step="0.1"
+[(ngModel)]="entryWeight"
+class="w-full rounded-btn border border-surface-300 px-4 py-2.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent dark:border-surface-600 dark:bg-surface-800 dark:text-white"
+placeholder="e.g. 75.5"
+/>
+</div>
+<div>
+<label class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300">Body Fat (%)</label>
+<input
+type="number"
+step="0.1"
+[(ngModel)]="entryBodyFat"
+class="w-full rounded-btn border border-surface-300 px-4 py-2.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent dark:border-surface-600 dark:bg-surface-800 dark:text-white"
+placeholder="e.g. 15.5"
+/>
+</div>
+<div>
+<label class="mb-1 block text-sm font-medium text-surface-700 dark:text-surface-300">Notes</label>
+<input
+type="text"
+[(ngModel)]="entryNotes"
+class="w-full rounded-btn border border-surface-300 px-4 py-2.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent dark:border-surface-600 dark:bg-surface-800 dark:text-white"
+placeholder="Any notes..."
+/>
+</div>
+</div>
+<button
+(click)="addEntry()"
+[disabled]="progressService.isLoading()"
+class="mt-4 rounded-btn bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 disabled:opacity-50"
+>
+{{ progressService.isLoading() ? 'Adding...' : 'Add Entry' }}
+</button>
+</div>
 
-      <!-- Weight Trend Chart -->
-      @if (sortedEntries().length > 1) {
-        <div class="rounded-xl bg-white p-6 shadow-sm dark:bg-surface-800">
-          <h2 class="mb-4 text-lg font-semibold text-surface-900 dark:text-white">Weight Trend</h2>
-          <svg [attr.viewBox]="'0 0 ' + chartWidth + ' ' + chartHeight" class="w-full max-h-64">
-            <!-- Grid lines -->
-            @for (y of yGridLines(); track y) {
-              <line [attr.x1]="0" [attr.y1]="y" [attr.x2]="chartWidth" [attr.y2]="y" stroke="currentColor" class="text-surface-200 dark:text-surface-700" stroke-width="1" />
-            }
-            <!-- Weight line -->
-            <polyline
-              [attr.points]="weightPoints()"
-              fill="none"
-              stroke="#0c8ee7"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <!-- Dots -->
-            @for (pt of weightPointsList(); track $index) {
-              <circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="4" fill="#0c8ee7" class="cursor-pointer">
-                <title>{{ pt.label }}</title>
-              </circle>
-            }
-            <!-- Y-axis labels -->
-            @for (label of yAxisLabels(); track label.value) {
-              <text x="-5" [attr.y]="label.y" text-anchor="end" class="fill-surface-400 text-[10px]">{{ label.value }}kg</text>
-            }
-            <!-- X-axis labels -->
-            @for (label of xAxisLabels(); track label.index) {
-              <text [attr.x]="label.x" y="280" text-anchor="middle" class="fill-surface-400 text-[10px]">{{ label.text }}</text>
-            }
-          </svg>
-        </div>
+<!-- Weight Trend Chart -->
+@if (sortedEntries().length > 1) {
+<div class="rounded-card bg-surface-card p-6 dark:bg-surface-800">
+<h2 class="mb-4 heading-2 text-surface-900 dark:text-white">Weight Trend</h2>
+<svg [attr.viewBox]="'0 0 ' + chartWidth + ' ' + chartHeight" class="w-full max-h-64">
+<!-- Grid lines -->
+@for (y of yGridLines(); track y) {
+<line [attr.x1]="0" [attr.y1]="y" [attr.x2]="chartWidth" [attr.y2]="y" stroke="currentColor" class="text-surface-200 dark:text-surface-700" stroke-width="1" />
+}
+<!-- Weight line -->
+<polyline
+[attr.points]="weightPoints()"
+fill="none"
+stroke="#0c8ee7"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+<!-- Dots -->
+@for (pt of weightPointsList(); track $index) {
+<circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="4" fill="#0c8ee7" class="cursor-pointer">
+<title>{{ pt.label }}</title>
+</circle>
+}
+<!-- Y-axis labels -->
+@for (label of yAxisLabels(); track label.value) {
+<text x="-5" [attr.y]="label.y" text-anchor="end" class="fill-surface-400 text-[10px]">{{ label.value }}kg</text>
+}
+<!-- X-axis labels -->
+@for (label of xAxisLabels(); track label.index) {
+<text [attr.x]="label.x" y="280" text-anchor="middle" class="fill-surface-400 text-[10px]">{{ label.text }}</text>
+}
+</svg>
+</div>
 
-        <!-- Body Fat Trend Chart -->
-        @if (hasBodyFatData()) {
-          <div class="rounded-xl bg-white p-6 shadow-sm dark:bg-surface-800">
-            <h2 class="mb-4 text-lg font-semibold text-surface-900 dark:text-white">Body Fat Trend</h2>
-            <svg [attr.viewBox]="'0 0 ' + chartWidth + ' ' + chartHeight" class="w-full max-h-64">
-              <!-- Grid lines -->
-              @for (y of bfYGridLines(); track y) {
-                <line [attr.x1]="0" [attr.y1]="y" [attr.x2]="chartWidth" [attr.y2]="y" stroke="currentColor" class="text-surface-200 dark:text-surface-700" stroke-width="1" />
-              }
-              <!-- Body fat line -->
-              <polyline
-                [attr.points]="bodyFatPoints()"
-                fill="none"
-                stroke="#e11d48"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <!-- Dots -->
-              @for (pt of bodyFatPointsList(); track $index) {
-                <circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="4" fill="#e11d48" class="cursor-pointer">
-                  <title>{{ pt.label }}</title>
-                </circle>
-              }
-              <!-- Y-axis labels -->
-              @for (label of bfYAxisLabels(); track label.value) {
-                <text x="-5" [attr.y]="label.y" text-anchor="end" class="fill-surface-400 text-[10px]">{{ label.value }}%</text>
-              }
-              <!-- X-axis labels -->
-              @for (label of xAxisLabels(); track label.index) {
-                <text [attr.x]="label.x" y="280" text-anchor="middle" class="fill-surface-400 text-[10px]">{{ label.text }}</text>
-              }
-            </svg>
-          </div>
-        }
-      }
+<!-- Body Fat Trend Chart -->
+@if (hasBodyFatData()) {
+<div class="rounded-card bg-surface-card p-6 dark:bg-surface-800">
+<h2 class="mb-4 heading-2 text-surface-900 dark:text-white">Body Fat Trend</h2>
+<svg [attr.viewBox]="'0 0 ' + chartWidth + ' ' + chartHeight" class="w-full max-h-64">
+<!-- Grid lines -->
+@for (y of bfYGridLines(); track y) {
+<line [attr.x1]="0" [attr.y1]="y" [attr.x2]="chartWidth" [attr.y2]="y" stroke="currentColor" class="text-surface-200 dark:text-surface-700" stroke-width="1" />
+}
+<!-- Body fat line -->
+<polyline
+[attr.points]="bodyFatPoints()"
+fill="none"
+stroke="#e11d48"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"
+/>
+<!-- Dots -->
+@for (pt of bodyFatPointsList(); track $index) {
+<circle [attr.cx]="pt.x" [attr.cy]="pt.y" r="4" fill="#e11d48" class="cursor-pointer">
+<title>{{ pt.label }}</title>
+</circle>
+}
+<!-- Y-axis labels -->
+@for (label of bfYAxisLabels(); track label.value) {
+<text x="-5" [attr.y]="label.y" text-anchor="end" class="fill-surface-400 text-[10px]">{{ label.value }}%</text>
+}
+<!-- X-axis labels -->
+@for (label of xAxisLabels(); track label.index) {
+<text [attr.x]="label.x" y="280" text-anchor="middle" class="fill-surface-400 text-[10px]">{{ label.text }}</text>
+}
+</svg>
+</div>
+}
+}
 
-      <!-- Entries Table -->
-      @if (progressService.isLoading()) {
-        <app-loading-spinner />
-      } @else if (progressService.error(); as err) {
-        <app-error-display [message]="err" (retry)="progressService.loadEntries()" />
-      } @else if (sortedEntries().length === 0) {
-        <app-empty-state icon="📊" message="No progress entries yet" actionLabel="Add First Entry" (action)="focusEntryDate()" />
-      } @else {
-        <div class="rounded-xl bg-white p-6 shadow-sm dark:bg-surface-800">
-          <h2 class="mb-4 text-lg font-semibold text-surface-900 dark:text-white">All Entries</h2>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm">
-              <thead>
-                <tr class="border-b border-surface-200 dark:border-surface-700">
-                  <th class="pb-2 font-medium text-surface-500 dark:text-surface-400">Date</th>
-                  <th class="pb-2 font-medium text-surface-500 dark:text-surface-400">Weight</th>
-                  <th class="pb-2 font-medium text-surface-500 dark:text-surface-400">Body Fat</th>
-                  <th class="pb-2 font-medium text-surface-500 dark:text-surface-400">Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (e of sortedEntries(); track e.id) {
-                  <tr class="border-b border-surface-100 dark:border-surface-700/50">
-                    <td class="py-3 text-surface-900 dark:text-white">{{ formatDate(e.date) }}</td>
-                    <td class="py-3 font-medium text-surface-900 dark:text-white">{{ e.weight }} kg</td>
-                    <td class="py-3 text-surface-600 dark:text-surface-400">{{ e.bodyFat ? e.bodyFat + '%' : '—' }}</td>
-                    <td class="py-3 text-surface-500 dark:text-surface-400">{{ e.notes || '—' }}</td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
-      }
-    </div>
-  `,
+<!-- Entries Table -->
+@if (progressService.isLoading()) {
+<app-loading-spinner />
+} @else if (progressService.error(); as err) {
+<app-error-display [message]="err" (retry)="progressService.loadEntries()" />
+} @else if (sortedEntries().length === 0) {
+<app-empty-state icon="📊" message="No progress entries yet" actionLabel="Add First Entry" (action)="focusEntryDate()" />
+} @else {
+<div class="rounded-card bg-surface-card p-6 dark:bg-surface-800">
+<h2 class="mb-4 heading-2 text-surface-900 dark:text-white">All Entries</h2>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm">
+<thead>
+<tr class="border-b border-surface-200 dark:border-surface-700">
+<th class="pb-2 font-medium text-surface-500 dark:text-surface-400">Date</th>
+<th class="pb-2 font-medium text-surface-500 dark:text-surface-400">Weight</th>
+<th class="pb-2 font-medium text-surface-500 dark:text-surface-400">Body Fat</th>
+<th class="pb-2 font-medium text-surface-500 dark:text-surface-400">Notes</th>
+</tr>
+</thead>
+<tbody>
+@for (e of sortedEntries(); track e.id) {
+<tr class="border-b border-surface-100 dark:border-surface-700/50">
+<td class="py-3 text-surface-900 dark:text-white">{{ formatDate(e.date) }}</td>
+<td class="py-3 font-medium text-surface-900 dark:text-white">{{ e.weight }} kg</td>
+<td class="py-3 text-surface-600 dark:text-surface-400">{{ e.bodyFat ? e.bodyFat + '%' : '—' }}</td>
+<td class="py-3 text-surface-500 dark:text-surface-400">{{ e.notes || '—' }}</td>
+</tr>
+}
+</tbody>
+</table>
+</div>
+</div>
+}
+</div>
+`,
 })
 export class ProgressComponent implements OnInit {
   protected readonly progressService = inject(ProgressService);

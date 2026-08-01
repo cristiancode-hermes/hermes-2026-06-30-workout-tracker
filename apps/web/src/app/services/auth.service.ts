@@ -67,7 +67,7 @@ export class AuthService {
         this.isLoggedIn.set(true);
       },
       error: () => {
-        this.logout();
+        this.currentUser.set(null);
       },
     });
   }
