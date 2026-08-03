@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AppController } from './app.controller';
@@ -19,15 +19,33 @@ import { ProgressEntry } from './entities/progress-entry.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-      type: 'sqljs',
-      location: 'data/workout-tracker.sqlite',
-      autoSave: true,
-      synchronize: true,
-      entities: [User, Exercise, Workout, WorkoutExercise, ProgressEntry],
+    TypeOrmModule.forRootAsync({
+      useFactory: (config: ConfigService) => {
+        const dbType = config.get<string>('DATABASE_TYPE') || 'sqljs';
+        const url = config.get<string>('DATABASE_URL') || '';
+
+        if (dbType === 'postgres') {
+          return {
+            type: 'postgres',
+            url,
+            entities: [User, Exercise, Workout, WorkoutExercise, ProgressEntry],
+            synchronize: true,
+            ssl: { rejectUnauthorized: false },
+          };
+        }
+
+        return {
+          type: 'sqljs',
+          location: 'data/workout-tracker.sqlite',
+          autoSave: true,
+          synchronize: true,
+          entities: [User, Exercise, Workout, WorkoutExercise, ProgressEntry],
+        };
+      },
+      inject: [ConfigService],
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'web', 'dist'),
+      rootPath: join(__dirname, '..', '..', 'web', 'dist', 'web', 'browser'),
       serveRoot: '/',
       exclude: ['/api/(.*)'],
     }),

@@ -54,4 +54,29 @@ export class ProgressService {
     const entry = await this.findOne(id, userId);
     await this.progressRepository.remove(entry);
   }
+
+  async exportCsv(userId: number) {
+    const entries = await this.progressRepository.find({
+      where: { userId },
+      order: { date: 'ASC' },
+    });
+
+    const escape = (v: unknown): string => {
+      const s = v == null ? '' : String(v);
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+
+    const header = ['date', 'weight', 'body_fat', 'notes'];
+    const rows = entries.map((e) => [
+      e.date,
+      e.weight,
+      e.bodyFat,
+      e.notes,
+    ]);
+
+    return {
+      filename: `progress-${new Date().toISOString().slice(0, 10)}.csv`,
+      csv: [header, ...rows].map((r) => r.map(escape).join(',')).join('\n'),
+    };
+  }
 }

@@ -39,4 +39,20 @@ export class ProgressService {
       },
     });
   }
+
+  exportCsv(): void {
+    this.http.get('/api/progress/export', { responseType: 'blob' }).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `progress-${new Date().toISOString().slice(0, 10)}.csv`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: () => {
+        this.error.set('Failed to export progress');
+      },
+    });
+  }
 }

@@ -11,7 +11,12 @@ import { ErrorDisplayComponent } from '../../components/error-display/error-disp
   imports: [FormsModule, LoadingSpinnerComponent, EmptyStateComponent, ErrorDisplayComponent],
   template: `
 <div class="mx-auto max-w-5xl space-y-6 p-4 pb-20 lg:pb-4 lg:pl-0">
+<div class="flex items-center justify-between">
 <h1 class="heading-1 text-surface-900 dark:text-white">Progress</h1>
+<button (click)="exportCsv()" class="inline-flex items-center gap-2 rounded-btn border border-surface-300 px-4 py-2 text-sm font-medium text-surface-700 transition-colors hover:border-accent hover:text-accent dark:border-surface-600 dark:text-surface-300 dark:hover:text-accent">
+⬇️ Export CSV
+</button>
+</div>
 
 <!-- Add Entry Form -->
 <div class="rounded-card bg-surface-card p-6 dark:bg-surface-800">
@@ -189,11 +194,9 @@ export class ProgressComponent implements OnInit {
   protected readonly chartWidth = 600;
   protected readonly chartHeight = 250;
   protected readonly padding = { top: 20, right: 20, bottom: 40, left: 50 };
-
   protected readonly sortedEntries = computed(() => {
     return [...this.progressService.entries()].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   });
-
   protected readonly hasBodyFatData = computed(() => {
     return this.sortedEntries().some((e) => e.bodyFat > 0);
   });
@@ -323,6 +326,10 @@ export class ProgressComponent implements OnInit {
     this.entryWeight.set(0);
     this.entryBodyFat.set(0);
     this.entryNotes.set('');
+  }
+
+  protected exportCsv(): void {
+    this.progressService.exportCsv();
   }
 
   protected formatDate(date: string): string {

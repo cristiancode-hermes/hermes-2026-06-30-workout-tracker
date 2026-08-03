@@ -49,6 +49,13 @@ export class SeedService implements OnModuleInit {
       name: 'Demo User',
     } as any);
 
+    // Create capture user (for portfolio screenshot workflow)
+    await this.userRepository.save({
+      email: 'demo@workout.test',
+      password: hashedPassword,
+      name: 'Demo Capture',
+    } as any);
+
     // Create exercises
     const exercises = await this.exerciseRepository.save(
       [

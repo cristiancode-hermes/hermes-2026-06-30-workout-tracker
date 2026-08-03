@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   Request,
+  Res,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { ProgressService } from './progress.service';
@@ -32,6 +33,15 @@ export class ProgressController {
   @ApiOperation({ summary: 'Get all progress entries for current user (latest first)' })
   findAll(@Request() req: any) {
     return this.progressService.findAll(req.user.id);
+  }
+
+  @Get('export')
+  @ApiOperation({ summary: 'Export progress entries as CSV' })
+  async exportCsv(@Request() req: any, @Res() res?: any) {
+    const { filename, csv } = await this.progressService.exportCsv(req.user.id);
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.send(csv);
   }
 
   @Get(':id')
